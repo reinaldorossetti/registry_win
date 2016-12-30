@@ -97,6 +97,12 @@ class RegistryWin:
         for x in site:
             value = value + hex(ord(x)).replace('0x', ' 00 ')
         test = value + " 00"
+        """
+        # Tudo em uma linha ficaria assim, mas eh mais facil entender
+        # pelo tradicional for incrementando o valor.
+        test = ' 00 '.join((hex(ord(x))[2:]) for x in string) + ' 00'
+        """
+
         return (test)
 
 if __name__ == '__main__':
