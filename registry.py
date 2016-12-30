@@ -67,9 +67,10 @@ class RegistryWin:
 
 
     def compatibility_mode(self, local, site, value):
+        test = self.string_hex_format(site)
         self.key_name = 'UserFilter'
         self.reg_path = 'Software\Microsoft\Internet Explorer\BrowserEmulation\ClearableListData'
-        self.value = value
+        self.value = bytes.fromhex(value + test)
         reg_key = self.open_key_reg(local)
         result = self.find_site(site, reg_key)
         if not result:
@@ -91,6 +92,12 @@ class RegistryWin:
             return True
         return False
 
+    def string_hex_format(self, site):
+        value = ''
+        for x in site:
+            value = value + hex(ord(x)).replace('0x', ' 00 ')
+        test = value + " 00"
+        return (test)
 
 if __name__ == '__main__':
     # Instanciando a classe
@@ -100,10 +107,9 @@ if __name__ == '__main__':
     path = r'C:\testlink_automation'
     print(reg.windows_path_set('user', path))
 
-    # Converte hex pra bytes, para poder enviar pro registro.
+    # Converte hex pra bytes, para poder enviar para o registro.
     # nome do site em hex 67 00 6d 00 61 00 69 00 6c 00 2e 00 63 00 6f 00 6d 00
     # http://codebeautify.org/string-hex-converter
-    site_hex = bytes.fromhex('41 1f 00 00 53 08 ad ba 01 00 00 00 30 00 00 00 01 00 00 00 01 00 00 00 0c 00 00 00 9a dd 65 6f\
-     28 5d d2 01 01 00 00 00 09 00 67 00 6d 00 61 00 69 00 6c 00 2e 00 63 00 6f 00 6d 00')
-
+    site_hex = '41 1f 00 00 53 08 ad ba 01 00 00 00 30 00 00 00 01 00 00 00 01 00 00 00 0c 00 00 00 9a dd 65 6f\
+     28 5d d2 01 01 00 00 00 09 '
     print(reg.compatibility_mode('user', "gmail.com", site_hex))
