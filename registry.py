@@ -18,7 +18,7 @@ class RegistryWin:
         winreg.CreateKey(winreg.HKEY_CURRENT_USER, self.reg_path)
         if "user" == local:
             registry_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, self.reg_path, 0, winreg.KEY_ALL_ACCESS)
-        else:
+        if "machine" == local:
             registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, self.reg_path, 0, winreg.KEY_ALL_ACCESS)
 
         return registry_key
@@ -28,6 +28,10 @@ class RegistryWin:
         # notify the system about the changes
         win32gui.SendMessage(win32con.HWND_BROADCAST, win32con.WM_SETTINGCHANGE, 0, self.reg_path)
 
+    def set_reg_path_dword(self, reg_key):
+        winreg.SetValueEx(reg_key, self.key_name, 0, winreg.REG_DWORD, self.value)
+        # notify the system about the changes
+        win32gui.SendMessage(win32con.HWND_BROADCAST, win32con.WM_SETTINGCHANGE, 0, self.reg_path)
 
     def set_reg_path_bin(self, reg_key):
         winreg.SetValueEx(reg_key, self.key_name, 0, winreg.REG_BINARY, self.value)
@@ -105,17 +109,3 @@ class RegistryWin:
 
         return (test)
 
-if __name__ == '__main__':
-    # Instanciando a classe
-    reg = RegistryWin()
-    # Temos que passar pra funcao 'user' ou 'machine', existe dois Path um do User e outro do Machine.
-    # Adicionar o caminho do projeto no sistema Windows.
-    path = r'C:\testlink_automation'
-    print(reg.windows_path_set('user', path))
-
-    # Converte hex pra bytes, para poder enviar para o registro.
-    # nome do site em hex 67 00 6d 00 61 00 69 00 6c 00 2e 00 63 00 6f 00 6d 00
-    # http://codebeautify.org/string-hex-converter
-    site_hex = '41 1f 00 00 53 08 ad ba 01 00 00 00 30 00 00 00 01 00 00 00 01 00 00 00 0c 00 00 00 9a dd 65 6f\
-     28 5d d2 01 01 00 00 00 09 '
-    print(reg.compatibility_mode('user', "gmail.com", site_hex))
