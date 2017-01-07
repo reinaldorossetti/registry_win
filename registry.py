@@ -23,6 +23,9 @@ class RegistryWin:
 
         return registry_key
 
+    def close_reg(self, reg_key):
+        return winreg.CloseKey(reg_key)
+
     def set_reg_path(self, reg_key):
         winreg.SetValueEx(reg_key, self.key_name, 0, winreg.REG_SZ, self.value)
         # notify the system about the changes
