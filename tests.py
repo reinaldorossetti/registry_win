@@ -1,8 +1,11 @@
 # Instanciando a classe
-from registry import RegistryWin
+
 from os import environ, system
 import platform
 from subprocess import getstatusoutput
+# importando a classe
+from registry import RegistryWin
+# Instanciando a classe.
 reg = RegistryWin()
 
 """
@@ -28,27 +31,39 @@ For IE 11 only, you will need to set a registry entry on the target computer so 
 a connection to the instance of Internet Explorer it creates.
 """
 
+# Primeiro verifica a versao do IE, se for IE11 ele executa a funcao pra adicionar a chave bfcache.
 # Verificar se o sistema operacional eh 64 ou 32bits, systeminfo me retorna o tipo de sistema.
 # quando coloco o [1] que dizer que quero somente o segundo valor da lista, que eh o resultado do cmd.
 
-sys = getstatusoutput("systeminfo | findstr //C:\"Tipo de sistema\" /C:\"System type\"")[1]
-if 'x64' in sys.lower():
-    reg.reg_path = "SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE"
-else:
-    reg.reg_path = "SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE"
-
+reg.reg_path = "Software\Microsoft\Internet Explorer"
+reg.key_name = "svcVersion"
 # cria a key
 key_open = reg.open_key_reg("machine")
-
-# Configuro as variaveis.
-reg.key_name = "iexplore.exe"
-reg.value = 0
-
-# Verifica se a chave jah existe.
-# caso nao exista ele seta.
 verified = reg.query_path(key_open)
-if not verified == 0:
-    reg.set_reg_path_dword(key_open)
-    print("FEATURE_BFCACHE adicionado.")
-else:
-    print("Registro jah adicionado.")
+reg.close_reg(key_open)
+
+def add_key_bfcache():
+    sys = getstatusoutput("systeminfo | findstr //C:\"Tipo de sistema\" /C:\"System type\"")[1]
+    if 'x64' in sys.lower():
+        reg.reg_path = "SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE"
+    else:
+        reg.reg_path = "SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE"
+
+    # cria a key
+    key_open = reg.open_key_reg("machine")
+
+    # Configuro as variaveis.
+    reg.key_name = "iexplore.exe"
+    reg.value = 0
+
+    # Verifica se a chave jah existe.
+    # caso nao exista ele seta.
+    verified = reg.query_path(key_open)
+    if not verified == 0:
+        reg.set_reg_path_dword(key_open)
+        print("FEATURE_BFCACHE adicionado.")
+    else:
+        print("Registro jah adicionado.")
+
+if "11." in verified:
+    add_key_bfcache()
