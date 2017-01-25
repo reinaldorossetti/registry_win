@@ -31,7 +31,6 @@ def SelectorWait(driver, locator):
 
 
 # Get iframe location x and y.
-sleep(3)
 captcha = SelectorWait(driver, "#CodSegCriado")
 
 #CodSegCriado
