@@ -1,5 +1,7 @@
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.expected_conditions import presence_of_element_located
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from time import sleep
@@ -24,22 +26,24 @@ def click(coors):
     mouse.press(x,y)
     mouse.release(x, y)
 
+def SelectorWait(driver, locator):
+    return WebDriverWait(driver, 45).until(presence_of_element_located((By.CSS_SELECTOR, locator)))
+
+
 # Get iframe location x and y.
 sleep(3)
-captcha = driver.find_element_by_css_selector("#CodSegCriado")
+captcha = SelectorWait(driver, "#CodSegCriado")
+
 #CodSegCriado
-sleep(3)
-test = driver.find_element_by_css_selector("#CodSegInformado")
+test = SelectorWait(driver, "#CodSegInformado")
 test.send_keys(Keys.ENTER)
-sleep(3)
 print(captcha.get_attribute('value'))
 test.send_keys(captcha.get_attribute('value'))
 
 
-test2 = driver.find_element_by_id("txtcd_Logon")
+test2 = SelectorWait(driver,"#txtcd_Logon")
 test2.send_keys("Udemy")
 test2.send_keys(Keys.TAB)
-sleep(3)
 
 dic_linux = {"1":(45, 136),"2":(65, 136),"3":(95, 136)}
 
