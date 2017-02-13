@@ -1,0 +1,19 @@
+{
+        "elements": [
+            {
+                "tag": "span",
+                "attr": "class",
+                "value": "repo js-repo"
+            },
+            {
+                "tag": "span",
+                "attr": "class",
+                "value": "js-repo"
+            },
+            {
+                "tag": "span",
+                "attr": "class",
+                "value": "xxx"
+            }
+        ]
+}
