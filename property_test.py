@@ -3,11 +3,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from datetime import datetime
+from logging_class import Logger
 
+logger = Logger().get()
+logger.info('Test propert')
 start = datetime.now().replace(microsecond=0)
 # Instanciando o firefox driver.
 # Passamos o caminho do driver, no meu caso eh linux a barra / eh no windows eh o contrario.
-driver = webdriver.Firefox()
+driver = webdriver.Chrome()
 # Abre a url.
 driver.get("http://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols")
 # Espera de forma implicita os elementos carregar na pagina.
@@ -15,7 +18,7 @@ driver.implicitly_wait(10)
 # Muda para o frame Pai.
 driver.switch_to.frame('iframeResult')
 # Muda para o frame Filho.
-driver.switch_to.frame("frame_a")
+driver.switch_to.frame(0)
 # imprime o codigo do frame atual.
 print(str(driver.page_source))
 
@@ -29,7 +32,6 @@ espera_explicita(driver, "h3")
 
 # Procura o elemento na tela via CSS Selector.
 elemento = driver.find_element(By.CSS_SELECTOR, "h3")
-elemento = driver.find_element(By.ID, "h3")
 
 print(elemento)
 
@@ -47,7 +49,8 @@ print(variavel_texto)
 
 assert "Frame A" == variavel_texto
 assert "http://www.w3schools.com/tags/frame_a.htm" == variavel_url
-
+logger.info('\n01 - Passed - Propert_test.py')
 # fecha o browser
-driver.quit()
+driver.close()
 print(datetime.now().replace(microsecond=0) - start)
+
