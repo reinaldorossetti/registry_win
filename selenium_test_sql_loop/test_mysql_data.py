@@ -8,7 +8,7 @@ from datetime import datetime
 class PropertyTest:
 
     def __init__(self):
-        self.start = datetime.now().replace(microsecond=0)
+
         # Instanciando o firefox driver.
         # Passamos o caminho do driver, no meu caso eh linux a barra / eh no windows eh o contrario.
         # Nao esqueca de baixar os drivers e passar o caminho ou deixar no path do windows.
@@ -17,6 +17,7 @@ class PropertyTest:
         self.driver.get("https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_legend")
         # Espera de forma implicita os elementos carregar na pagina.
         self.driver.implicitly_wait(10)
+        # Muda para o frame correto.
         self.driver.switch_to.frame("iframeResult")
 
     def espera_explicita(self, selector, delay=30):
