@@ -42,10 +42,10 @@ class PropertyTest:
 
         submit = self.driver.find_element(By.CSS_SELECTOR, "input[type*='submit']")
         submit.click()
-        # Armazenar o elemento texto da tag a
+        # pega o elemento pra confirmar o cadastro ou seja para fazer assert final.
         variavel_texto = self.espera_explicita("div.w3-large.w3-border")
 
-        # Fazendo os assert
+        # Fazendo o assert
         assert "firstname={}&lastname={}".format(first_name,last_name) == \
                 variavel_texto.text
         # fecha o browser
