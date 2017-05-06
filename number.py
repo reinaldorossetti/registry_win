@@ -1,5 +1,5 @@
 import re
-
+# a brincadeira eh formatar os numeros seguindo a ordem abaixo, dos ultimos valores.
 #s = "004-448-555-583-61" # - > 14 number - mod=2
 #s = "022-198-53-24" # - > 10 number - mod=1
 s = "555 /- @372 $- 654" # -> 9 number - mod=0
