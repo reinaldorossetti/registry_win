@@ -22,13 +22,12 @@ for x in list_numbers:
     #print(decremento)
     #print(y, y%3==0)
 
-    if mod==0 and y%3==0 and y<total_number:
+    if (mod==0 or mod==2) and y%3==0 and y<total_number:
         value=value+str(x)+"-"
     elif mod==1 and y%3==0 and y<total_number and decremento>=4:
         value=value+str(x)+"-"
+        # print(value)
     elif mod==1 and decremento<4 and decremento%2==0 and y<total_number:
-        value=value+str(x)+"-"
-    elif mod==2 and y%3==0 and y<total_number:
         value=value+str(x)+"-"
     else:
         value=value+str(x)
