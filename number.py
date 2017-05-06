@@ -18,7 +18,6 @@ for x in list_numbers:
         value=value+str(x)+"-"
     elif mod==1 and y%3==0 and y<total_number and decremento>=4:
         value=value+str(x)+"-"
-        # print(value)
     elif mod==1 and decremento<4 and decremento%2==0 and y<total_number:
         value=value+str(x)+"-"
     else:
