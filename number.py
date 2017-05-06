@@ -1,25 +1,38 @@
 import re
-
-#s =   "00-44  48 5555 8361"
-s = "0 - 22 1985--324"
-
+#s = "004-0 - 22 1985--32" # mod 0
+#s =   "004- 448- 55 5 -583 -61" # mod 2
+s = "555-372-xxx-000-65-66" #mod 1
 """
-004-448-555-583-61 - > 14 number
-022-198-53-24 - > 10 number
-555-372-654 -> 9 number
+004-448-555-583-61 - > 14 number - mod=2
+022-198-53-24 - > 10 number - mod=1
+555-372-654 -> 9 number - mod=0
 """
 
-result = re.findall(r'\d+', s)
-test1 = ''.join(result)
-list_numbers = [int(i) for i in test1]
-# print(list_numbers)
-# print(len(list_numbers))
-# print('-'.join(result))
+result = ''.join(re.findall(r'\d+', s))
+list_numbers = [int(i) for i in result]
+total_number = len(list_numbers)
+mod = total_number%3
+value=""
+y=0
+decremento=total_number
 
-if len(list_numbers)==14:
-    print("%s-%s-%s-%s-%s" % (test1[0:3], test1[3:6], test1[6:9], test1[9:12], test1[12:14]))
-elif len(list_numbers)==10:
-    print("%s-%s-%s-%s" % (test1[0:3], test1[3:6], test1[6:8], test1[8:10]))
-elif len(list_numbers)==9:
-    print("%s-%s-%s" % (test1[0:3], test1[3:6], test1[6:9]))
+for x in list_numbers:
+    y=y+1
+    decremento=decremento-1
+    #print(decremento)
+    #print(y, y%3==0)
+
+    if mod==0 and y%3==0 and y<total_number:
+        value=value+str(x)+"-"
+    elif mod==1 and y%3==0 and y<total_number and decremento>=4:
+        value=value+str(x)+"-"
+    elif mod==1 and decremento<4 and decremento%2==0 and y<total_number:
+        value=value+str(x)+"-"
+    elif mod==2 and y%3==0 and y<total_number:
+        value=value+str(x)+"-"
+    else:
+        value=value+str(x)
+
+print(value)
+
 
