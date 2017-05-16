@@ -16,6 +16,11 @@ def SetAsForegroundWindow(hwndMain):
     win32gui.SetForegroundWindow(hwndMain)
     sleep(5)
 
+def SetAsMinimize(hwndMain):
+    Minimize = win32gui.GetForegroundWindow(hwndMain)
+    win32gui.ShowWindow(Minimize, win32con.SW_MINIMIZE)
+    sleep(5)
+
 SetAsForegroundWindow(hwndMain)
 
 def send(text):
