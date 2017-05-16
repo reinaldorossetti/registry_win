@@ -1,4 +1,5 @@
 import win32gui
+import win32con
 
 toplist = []
 winlist = []
@@ -16,5 +17,4 @@ firefox = firefox[0]
 win32gui.SetForegroundWindow(firefox[0])
 
 # To minimize the window, the following line:
-import win32con
 win32gui.ShowWindow(firefox[0], win32con.SW_MINIMIZE)
