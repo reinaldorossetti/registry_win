@@ -12,5 +12,4 @@ def wait_load(driver, timeout=30):
     wait = WebDriverWait(driver, timeout)
     wait.until_not(find(driver))
     
-driver = webdriver.Chrome()
 wait_load(driver)
