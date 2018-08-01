@@ -5,10 +5,6 @@ def find(driver):
     return driver.find_element_by_css_selector('div[id="loading-component"][class*=show]')
 
 def wait_load(driver, timeout=30):
-    """Clear the cookies and cache for the ChromeDriver instance."""
-    # navigate to the settings page
-    driver.get('chrome://settings/clearBrowserData')
-
     # wait to appear
     wait = WebDriverWait(driver, 5)
     wait.until(find(driver))
