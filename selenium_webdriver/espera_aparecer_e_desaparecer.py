@@ -14,7 +14,7 @@ class Wait:
         elem = None
         elem_not = None
         try:
-            elem = WebDriverWait(driver, 5, 1, (ElementNotVisibleException)).\
+            elem = WebDriverWait(driver, 3, 1, (ElementNotVisibleException)).\
                 until(lambda x: x.find_element_by_css_selector(locator).is_displayed())
             if elem:
                 elem_not = WebDriverWait(driver, timeout, 1, (ElementNotVisibleException)). \
