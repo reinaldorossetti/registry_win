@@ -7,7 +7,7 @@ driver.get('https://web.whatsapp.com/')
 driver.implicitly_wait(30)
 driver.set_page_load_timeout(30)
 
-nameList = ["Diogo","ruby","Python"]
+nameList = ["Diogo","ruby","Python","QA Produtos","Qualidade como Cultura"]
 dir = "{}\\arquivo\\".format(getcwd())
 
 input('Enter anything after scanning QR code')
